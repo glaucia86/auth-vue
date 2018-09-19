@@ -38,25 +38,74 @@ const allowCrossDomain = (req, res, next) => {
 
 app.use(allowCrossDomain)
 
-router.post('registrar', (req, res) => {
+// Rota: Register => rota responsável por criar um novo registro do usuário.
+// POST: localhost:3000/v1/register
+router.post('/register', (req, res) => {
   db.insert([
-    req.body.nome,
+    req.body.name,
     req.body.email,
-    bcrypt.hashSync(req.body.senha, 8)
+    bcrypt.hashSync(req.body.password, 8)
   ],
   (err) => {
     if (err) {
-      res.status(500).send('Houve problema ao realizar o registro do usuário.')
+      res.status(500).send('Houve um problema ao realizar o registro do usuário.')
     }
 
-    db.selecionarPorEmail(req.body.email, (err, user) => {
+    db.selectByEmail(req.body.email, (err, user) => {
       if (err) {
-        return res.status(500).send('Houve problema ao retornar um usuário.')
+        return res.status(500).send('Houve um problema ao retornar o usuário.')
       }
 
       // Aqui vamos criar uma variável 'token' a qual esse token irá expirar em 24h:
       let token = jwt.sign({ id: user.id }, config.secret, { expiresIn: 86400 })
       res.status(200).send({ auth: true, token: token, user: user })
     })
+  })
+})
+
+// Rota: Register => rota responsável por criar um novo registro do usuário como admin.
+// POST: localhost:3000/v1/register-admin
+router.post('/register-admin', (req, res) => {
+  db.insertAdmin([
+    req.body.name,
+    req.body.email,
+    bcrypt.hashSync(req.body.password, 8),
+    1
+  ],
+  (err) => {
+    if (err) {
+      res.status(500).send('Houve um problema ao realizar o registro do usuário')
+    }
+
+    db.selectByEmail(req.body.email, (err, user) => {
+      if (err) {
+        return res.status(500).send('Houve um problema ao retornar o usuário')
+      }
+
+      let token = jwt.sign({ id: user.id }, config.secret, { expiresIn: 86400 })
+      res.status(200).send({ auth: true, token: token, user: user })
+    })
+  })
+})
+
+// Rota: Login => rota responsável por realizar login na página:
+// POST:localhost:3000/v1/login
+router.post('/login', (req, res) => {
+  db.selectByEmail(req.body.email, (err, user) => {
+    if (err) {
+      return res.status(500).send('Houve um problema no servidor.')
+    }
+    if (!user) {
+      return res.status(404).send('Usuário não encontrado.')
+    }
+
+    let passwordIsValid = bcrypt.compareSync(req.body.password, user.user_pass)
+
+    if (!passwordIsValid) {
+      return res.status(400).send({ auth: false, token: null })
+    }
+
+    let token = jwt.sign({ id: user.id }, config.secret, { expiresIn: 86400 })
+    res.status(200).send({ auth: true, token: token, user: user })
   })
 })
