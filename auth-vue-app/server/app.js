@@ -12,11 +12,11 @@ const express = require('express')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
-const dataBase = require('./db')
+const DB = require('./db')
 const config = require('./config')
 
 // Aqui estou fazendo a chamada da configuração da base de dados: sqlite3
-const db = new dataBase('sqlitedb')
+const db = new DB('sqlitedb')
 
 // Chamada do Express:
 const app = express()
