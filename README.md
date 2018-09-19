@@ -7,7 +7,11 @@ Repositório responsável pelo projeto de Autenticação usando Vue &  Vue-Route
 - Visual Studio Code
 - Node.Js;
 - Vue.Js;
-- ES 5/6
+- Conceitos de vue-router;
+- Conceitos de Criptografia & Autenticação com JWT;
+- ES 5/6;
+- Sqlite3;
+
 
 ## Executando Código Localmente: :bulb:
 
