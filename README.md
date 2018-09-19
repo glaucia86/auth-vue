@@ -18,8 +18,14 @@ Caso queira testar a aplicação de maneira local basta seguir os passos abaixo:
 Para começar, você deve clonar o repositório do projeto na sua máquina e instalar as dependências usando o comando:
 
 ```
+> cd auth-vue-app 
 > npm install
 ```
+
+Ao digitar a instrução acima, automaticamente ele irá baixar todas as dependências listadas e definidas no arquivo package.json:
+
+* `node_modules` - que contêm os packages do npm que precisará para o projeto.
+
 
 ### Pré-Requisitos de Instalação:
 
@@ -37,14 +43,10 @@ cd "C:\Users\NomeDoComputador\Documents\..."
 ```
 
 Depois, quando estiver na pasta do projeto, basta digitar no cmd a seguinte instrução: **(dentro do src)**
-
 ```
-npm install
+> cd auth-vue-app 
+> npm run dev
 ```
-
-Ao digitar a instrução acima, automaticamente ele irá baixar todas as dependências listadas e definidas no arquivo package.json:
-
-* `node_modules` - que contêm os packages do npm que precisará para o projeto.
 
 
 ### Instalação dos Programas via Linux:
