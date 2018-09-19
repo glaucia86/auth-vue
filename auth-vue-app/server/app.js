@@ -109,3 +109,12 @@ router.post('/login', (req, res) => {
     res.status(200).send({ auth: true, token: token, user: user })
   })
 })
+
+// Enfim, vamos agora iniciar o servidor:
+app.use(router)
+
+let port = process.env.PORT || 3000
+
+let server = app.listen(port, () => {
+  console.log('Servidor em execução na porta...: ' + port)
+})
