@@ -1,4 +1,4 @@
-# Desenvolvendo uma aplicação Autenticada com Vue:
+# Desenvolvendo uma aplicação Autenticada com Vue
 
 Repositório responsável pelo projeto de Autenticação usando Vue &  Vue-Router.
 
