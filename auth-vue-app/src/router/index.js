@@ -15,6 +15,8 @@ import Admin from '@/components/Admin'
 
 Vue.use(Router)
 
+Vue.use(Router)
+
 let router = new Router({
   mode: 'history',
   routes: [
@@ -25,7 +27,7 @@ let router = new Router({
     },
     {
       path: '/login',
-      name: 'Login',
+      name: 'login',
       component: Login,
       meta: {
         guest: true
@@ -33,7 +35,7 @@ let router = new Router({
     },
     {
       path: '/register',
-      name: 'Register',
+      name: 'register',
       component: Register,
       meta: {
         guest: true
@@ -55,12 +57,13 @@ let router = new Router({
         requiresAuth: true,
         is_admin: true
       }
-    }]
+    }
+  ]
 })
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.getItem('jwt') === null) {
+    if (localStorage.getItem('jwt') == null) {
       next({
         path: '/login',
         params: { nextUrl: to.fullPath }

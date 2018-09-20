@@ -1,6 +1,6 @@
 <template>
-  <div class="hello">
-    <h1>Homepage</h1>
+  <div class='hello'>
+    <h1>Página Principal</h1>
     <h2>{{ msg }}</h2>
   </div>  
 </template>
