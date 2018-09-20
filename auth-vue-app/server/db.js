@@ -1,6 +1,6 @@
 /**
  * Arquivo: db.js
- * Descrição: arquivo responsável por tratar a base de dados.
+ * Descrição: arquivo responsável por abstrair as funções básicas para a base de dados.
  * Data: 19/08/2018
  * Autora: Glaucia Lemos
  */
