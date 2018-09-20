@@ -21,7 +21,31 @@
 </template>
 
 <script>
-    
+    export default {
+        data() {
+            return {
+                email: '',
+                password: ''
+            }
+        },
+        methods: {
+            handleSubmit(e) {
+                e.preventDefault();
+                if (this.password.lenght > 0) {
+                    this.$http.post('http://localhost:3000/login', {
+                        email: this.email,
+                        password: this.password
+                    })
+                    .then(response => {
+
+                    })
+                    .catch ((error) => {
+                        console.error(error.response);
+                    });
+                }
+            }
+        }
+    }
 </script>
 
 <style scoped>
