@@ -39,7 +39,7 @@ const allowCrossDomain = (req, res, next) => {
 app.use(allowCrossDomain)
 
 // Rota: Register => rota responsável por criar um novo registro do usuário.
-// POST: localhost:3000/v1/register
+// POST: localhost:3000/register
 router.post('/register', (req, res) => {
   db.insert([
     req.body.name,
@@ -64,7 +64,7 @@ router.post('/register', (req, res) => {
 })
 
 // Rota: Register => rota responsável por criar um novo registro do usuário como admin.
-// POST: localhost:3000/v1/register-admin
+// POST: localhost:3000/register-admin
 router.post('/register-admin', (req, res) => {
   db.insertAdmin([
     req.body.name,
@@ -89,7 +89,7 @@ router.post('/register-admin', (req, res) => {
 })
 
 // Rota: Login => rota responsável por realizar login na página:
-// POST:localhost:3000/v1/login
+// POST:localhost:3000/login
 router.post('/login', (req, res) => {
   db.selectByEmail(req.body.email, (err, user) => {
     if (err) {
