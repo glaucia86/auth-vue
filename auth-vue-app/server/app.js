@@ -9,11 +9,11 @@
 'use strict'
 
 const express = require('express')
+const DB = require('./db')
+const config = require('./config')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
-const DB = require('./db')
-const config = require('./config')
 
 // Aqui estou fazendo a chamada da configuração da base de dados: sqlite3
 const db = new DB('sqlitedb')
@@ -85,6 +85,21 @@ router.post('/register-admin', (req, res) => {
       let token = jwt.sign({ id: user.id }, config.secret, { expiresIn: 86400 })
       res.status(200).send({ auth: true, token: token, user: user })
     })
+  })
+})
+
+// Rota: Register => rota responsável por retornar um determinado token a ser gerado para o usuário:
+// GET: localhost:3000/me
+router.get('/me', (req, res) => {
+  let token = req.headers['x-access-token']
+  if (!token) {
+    return res.status(401).send({ auth: false, message: 'Sem envio de token.' })
+  }
+  jwt.verify(token, config.secret, (err, decoded) => {
+    if (err) {
+      return res.status(500).send({ auth: false, message: 'Falha de autenticação no token.' })
+    }
+    res.status(200).send(decoded)
   })
 })
 

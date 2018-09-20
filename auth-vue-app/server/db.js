@@ -15,48 +15,44 @@ class Db {
     this.createTable()
   }
 
-  // Aqui estamos criando uma tabela para a aplicação:
   createTable () {
     const sql = `
-      create table if not exists user (
-        id integer primary key,
-        name text,
-        email text unique
-        user_pass text,
-        is_admin integer)`
+      CREATE TABLE IF NOT EXISTS user (
+    	  id integer PRIMARY KEY, 
+    		name text NOT NULL, 
+    		email text NOT NULL UNIQUE, 
+    		user_pass text NOT NULL,
+        is_admin integer NOT NULL DEFAULT 0)`
     return this.db.run(sql)
   }
 
-  selectByEmail (email, calllback) {
+  selectByEmail (email, callback) {
     return this.db.get(
-      `select * from user where = ?`,
-      [email], (err, row) => {
-        calllback(err, row)
+      `SELECT * FROM user WHERE email = ?`,
+      [email], function (err, row) {
+        callback(err, row)
       })
   }
 
-  insertAdmin (user, calllback) {
+  selectAll (callback) {
+    return this.db.all(`SELECT * FROM user`, function (err, rows) {
+      callback(err, rows)
+    })
+  }
+
+  insert (user, callback) {
     return this.db.run(
-      `insert into user(name, email, user_pass, is_admin)
-       values (?, ?, ?, ?)`,
+      'INSERT INTO user (name,email,user_pass) VALUES (?,?,?)',
       user, (err) => {
-        calllback(err)
+        callback(err)
       })
   }
 
-  selectAll (calllback) {
-    return this.db.all(
-      `select * from user`,
-      (err, rows) => {
-        calllback(err, rows)
-      })
-  }
-
-  insert (user, calllback) {
+  insertAdmin (user, callback) {
     return this.db.run(
-      `insert into user (name, email, user_pass) values (?, ?, ?)`,
+      'INSERT INTO user (name,email,user_pass,is_admin) VALUES (?,?,?,?)',
       user, (err) => {
-        calllback(err)
+        callback(err)
       })
   }
 }
