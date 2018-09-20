@@ -2,7 +2,7 @@
   <div class='hello'>
     <h1>Página Principal</h1>
     <h2>{{ msg }}</h2>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -19,7 +19,7 @@ export default {
   h1,h2 {
     font-weight: normal;
   }
-  
+
   ul {
     list-style-type: none;
     padding: 0;
@@ -34,4 +34,3 @@ export default {
     color: #42b983;
   }
 </style>
-

@@ -22,7 +22,7 @@ class Db {
     		name text NOT NULL, 
     		email text NOT NULL UNIQUE, 
     		user_pass text NOT NULL,
-        is_admin integer NOT NULL DEFAULT 0)`
+        isAdmin integer NOT NULL DEFAULT 0)`
     return this.db.run(sql)
   }
 
@@ -50,7 +50,7 @@ class Db {
 
   insertAdmin (user, callback) {
     return this.db.run(
-      'INSERT INTO user (name,email,user_pass,is_admin) VALUES (?,?,?,?)',
+      'INSERT INTO user (name,email,user_pass,isAdmin) VALUES (?,?,?,?)',
       user, (err) => {
         callback(err)
       })
